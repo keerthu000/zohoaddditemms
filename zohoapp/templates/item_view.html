@@ -8,7 +8,7 @@
     <div class="col-md-10 " style=" position: fixed;">
         <div class="row">
             <div class="col-md-3"><a class="text-white" style="font-size: 2rem;">All Items</a></div>
-            <div class="col-md-6 form-inline" style="margin-left: 55rem;margin-top: -2rem;"><a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'additem' %}"><i class="fa-solid fa-plus "></i>New</a>
+            <div class="col-md-6 form-inline" style="margin-left: 55rem;margin-top: -3rem;"><a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'additem' %}"><i class="fa-solid fa-plus "></i>New</a>
               <a style="color: #ccc;"href="#3">      
                 <form action="">
                   <select name="" class="form-control">
@@ -26,6 +26,7 @@
                 <th>Name</th>
                 <th>description</th>
                 <th>Rate</th>
+                <th>HSN/SAC</th> 
                 <th>usage unit</th>
               </tr>
             </thead>
@@ -37,6 +38,7 @@
                <td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.Name}}</td>
                 <td>{{v.s_desc}}</td>
                 <td>{{v.s_price}}</td>
+                <td>{{v.hsn}}</td> 
                 <td>{{v.unit.unit}}</td>
                
               </tr>

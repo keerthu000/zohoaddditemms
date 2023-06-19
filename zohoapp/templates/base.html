@@ -74,6 +74,146 @@
     text-decoration: none;
   }
   
+
+ 
+
+.modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}
+.form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.form-row > .col,
+.form-row > [class*="col-"] {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+
+.form-inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.form-inline .form-check {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .form-inline label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  .form-inline .form-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  .form-inline .form-control-plaintext {
+    display: inline-block;
+  }
+  .form-inline .input-group,
+  .form-inline .custom-select {
+    width: auto;
+  }
+  .form-inline .form-check {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: auto;
+    padding-left: 0;
+  }
+  .form-inline .form-check-input {
+    position: relative;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    margin-top: 0;
+    margin-right: 0.25rem;
+    margin-left: 0;
+  }
+  .form-inline .custom-control {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  .form-inline .custom-control-label {
+    margin-bottom: 0;
+  }
+}
+
 </style>
 
 <section class="sectionhtml">
@@ -130,7 +270,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'itemview' %}">Items</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'additem' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -139,7 +279,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'viewpricelist' %}">Price List</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'addprice' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -166,7 +306,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'banking_home' %}">Offline Banking</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'create_banking' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -190,12 +330,12 @@
             <span class="menu-title">Sales</span>
             
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu " >
             <li>
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="">Customers</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -204,25 +344,25 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'allestimates'%}">Estimates</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'newestimate' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
               </div> 
 
-              <div class="dropdown-item">
+              <div class="dropdown-item ">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'retainer_invoice' %}">Retainer Invoices</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'add_invoice' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
               </div> 
               
               <div class="dropdown-item">
-                <a class="d-inline-block" style="color: #3f6391" href="">Sales Orders</a>
-                <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                <a class="d-inline-block" style="color: #3f6391" href="{% url 'view_sales_order' %}">Sales Orders</a>
+                <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'create_sales_order' %}">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -231,7 +371,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'invoiceview' %}">Invoices</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'add_prod' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -240,7 +380,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="">Credit Notes</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -266,7 +406,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="{% url 'view_vendor_list' %}">Vendors</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'vendor' %}">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -275,16 +415,16 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="">Expenses</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
               </div>    
               
               <div class="dropdown-item">
-                <a class="d-inline-block" style="color: #3f6391" href="">Recurring Expenses</a>
-                <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                <a class="d-inline-block" style="color: #3f6391" href="{% url 'recurringbase' %}">Recurring Expenses</a>
+                <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="{% url 'recurringhome' %}">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -293,7 +433,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="">Purchase Orders</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -302,7 +442,7 @@
               <div class="dropdown-item">
                 <a class="d-inline-block" style="color: #3f6391" href="">Bills</a>
                 <a class="d-inline-block" style="color: #3f6391;margin-left: 3px;" href="">
-                  <span class="icon">
+                  <span class="icon bg-light rounded-circle" style="text-align: right; width: 25px;">
                     <i class="mdi mdi-plus"></i>
                   </span>
                 </a>
@@ -414,7 +554,7 @@
    
                   <p class="mb-0 d-none d-sm-block navbar-profile-name" style="color: white;">
                     
-                    {% if company.comapny_name %}
+                    {% if company.company_name != None %}
                     {{ company.company_name }}
                     {% else %}
                     Add Company
@@ -438,7 +578,7 @@
                   </div>
                   
                   <div class="preview-item-content">
-                    <p class="preview-subject mb-1 " style="color: white;">Dashnoard</p>
+                    <p class="preview-subject mb-1 " style="color: white;">Dashboard</p>
                   </div>
                 </a>
                 <a href="{% url 'view_profile' %}" class="dropdown-item preview-item">

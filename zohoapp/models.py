@@ -54,6 +54,7 @@ class AddItem(models.Model):
     type=models.TextField(max_length=255)
     Name=models.TextField(max_length=255)
     unit=models.ForeignKey(Unit,on_delete=models.CASCADE)
+    hsn=models.IntegerField(null=True,blank=True)
     sales=models.ForeignKey(Sales,on_delete=models.CASCADE)
     purchase=models.ForeignKey(Purchase,on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now_add=True)
@@ -332,3 +333,75 @@ class bank(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     acc_type = models.CharField(max_length=220,default='', null=True, blank=True)
     bank_name = models.CharField(max_length=220,default='', null=True, blank=True)
+    
+    from django.db import models
+
+
+class Expense(models.Model):
+    profile_name = models.CharField(max_length=255)
+    repeat_every = models.CharField(max_length=50)
+    start_date = models.DateField()
+    ends_on = models.DateField()
+    expense_account = models.CharField(max_length=255)
+    expense_type = models.CharField(max_length=50)
+    goods_label = models.CharField(max_length=255, default='')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=10)
+    paidthrough = models.CharField(max_length=50)
+    vendor = models.ForeignKey(vendor_table, on_delete=models.CASCADE)
+    gst = models.CharField(max_length=255, blank=True)
+    destination = models.CharField(max_length=255, blank=True)
+    tax = models.CharField(max_length=255, blank=True)
+    notes = models.CharField(max_length=255, blank=True)
+    customername = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.profile_name
+
+
+
+class remarks_table(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    vendor=models.ForeignKey(vendor_table,on_delete=models.CASCADE,null=True)
+    remarks=models.CharField(max_length=500)
+    
+class Account(models.Model):
+    accountType = models.CharField(max_length=255)
+    accountName = models.CharField(max_length=255)
+    accountCode = models.CharField(max_length=255)
+    description = models.TextField()
+    
+
+class SalesOrder(models.Model):
+    customer=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)
+    sales_no=models.CharField(max_length=255,null=True,blank=True)
+    reference=models.CharField(max_length=255,null=True,blank=True)
+    sales_date=models.DateField(max_length=255,null=True,blank=True)
+    ship_date=models.DateField(max_length=255,null=True,blank=True)
+    d_method=models.TextField(null=True,blank=True)
+    s_person=models.TextField(null=True,blank=True)
+    igst=models.TextField(max_length=255,null=True,blank=True)
+    cgst=models.TextField(max_length=255,null=True,blank=True)
+    sgst=models.TextField(max_length=255,null=True,blank=True)
+    t_tax=models.FloatField(null=True,blank=True)
+    subtotal=models.FloatField(null=True,blank=True)
+    grandtotal=models.FloatField(null=True,blank=True)
+    cxnote=models.TextField(max_length=255,null=True,blank=True)
+    file=models.ImageField(upload_to='documents',null=True,blank=True)
+    terms_condition=models.TextField(max_length=255,null=True,blank=True)
+    status=models.TextField(max_length=255,null=True,blank=True)
+    terms=models.ForeignKey(payment_terms,on_delete=models.CASCADE,null=True,blank=True)
+    def __str__(self) :
+        return self.invoice_no
+    
+
+    
+class sales_item(models.Model):
+    product=models.TextField(max_length=255,null=True,blank=True)
+    quantity=models.IntegerField(null=True,blank=True)
+    hsn=models.TextField(max_length=255,null=True,blank=True)
+    tax=models.IntegerField(null=True,blank=True)
+    total=models.FloatField(null=True,blank=True)
+    desc=models.TextField(max_length=255,null=True,blank=True)
+    rate=models.TextField(max_length=255,null=True,blank=True)
+    sale=models.ForeignKey(SalesOrder,on_delete=models.CASCADE,null=True,blank=True)
