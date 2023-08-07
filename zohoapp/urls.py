@@ -6,6 +6,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.static import serve
 from .views import EmailAttachementView, save_data
 
+
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('register', views.register, name='register'),
@@ -16,6 +18,9 @@ urlpatterns = [
     path('edit_profile/<pk>', views.edit_profile, name='edit_profile'),
     path('itemview',views.itemview,name='itemview'),
     path('additem',views.additem,name='additem'),
+    # path('comment/<int:product_id>', views.comment, name='comment'),
+    path('commentdb/<int:product_id>',views.commentdb,name='commentdb'),
+    path('delete_comment/<int:product_id>/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('add',views.add,name='add'),
     path('add_account',views.add_account,name='add_account'),
     path('detail/<int:id>',views.detail,name='detail'),
@@ -117,10 +122,7 @@ urlpatterns = [
     path('add_customer',views.add_customer,name='add_customer'),
     path('entr_custmr',views.entr_custmr,name='entr_custmr'),
     path('payment_term',views.payment_term,name='payment_term'),
-
-
-
-    
+    # path('search_data',views.search_data,name='search_data'),
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
     path('add_customer_for_sorder',views.add_customer_for_sorder,name='add_customer_for_sorder'),

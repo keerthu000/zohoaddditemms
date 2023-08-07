@@ -12,8 +12,11 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.views import View
 from .forms import EmailForm
+from django.urls import reverse
 from django.http import JsonResponse
-
+from django.core import serializers
+from zohoapp.models import Comments_item
+from django.core.paginator import Paginator
 
 def index(request):
 
@@ -81,7 +84,7 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def base(request):
    
        
@@ -91,6 +94,22 @@ def base(request):
             Unit(unit='UNIT').save()
     if not Unit.objects.filter(unit='LITRE').exists():
             Unit(unit='LITRE').save()
+    if not Unit.objects.filter(unit='DOZEN').exists():
+            Unit(unit='DOZEN').save()
+    if not Unit.objects.filter(unit='DOZEN').exists():
+            Unit(unit='DOZEN').save()
+    if not Unit.objects.filter(unit='GRAMS').exists():
+            Unit(unit='GRAMS').save()
+    if not Unit.objects.filter(unit='KILOGRAMS').exists():
+            Unit(unit='KILOGRAMS').save()
+    if not Unit.objects.filter(unit='METERS').exists():
+            Unit(unit='METERS').save()
+    if not Unit.objects.filter(unit='TABLETS').exists():
+            Unit(unit='TABLETS').save()
+    if not Unit.objects.filter(unit='PIECES').exists():
+            Unit(unit='PIECES').save()
+    if not Unit.objects.filter(unit='PAIRS').exists():
+            Unit(unit='PAIRS').save()
 
     if not Sales.objects.filter(Account_name='General Income').exists():
             Sales(Account_type='INCOME',Account_name='General Income',Account_desc='salesincome').save()
@@ -104,25 +123,91 @@ def base(request):
             Sales(Account_type='INCOME',Account_name='Other Charges',Account_desc='salesincome').save()
     if not Sales.objects.filter(Account_name='Shipping Charge').exists():
             Sales(Account_type='INCOME',Account_name='Shipping Charge',Account_desc='salesincome').save()
+    
 
 
-    if not  Purchase.objects.filter(Account_name='Advertising & Marketing').exists():
-            Purchase(Account_type='EXPENCES',Account_name='Advertising & Markting',Account_desc='Advertsing Exp').save()
+   
+    if not  Purchase.objects.filter(Account_name='Advertising & Markting').exists():        
+        Purchase(Account_type='EXPENCES',Account_name='Advertising & Markting',Account_desc='Advertsing Exp').save()
+    
     if not Purchase.objects.filter(Account_name='Debit Charge').exists():
             Purchase(Account_type='EXPENCES',Account_name='Debit Charge',Account_desc='Debited Exp').save()
     if not Purchase.objects.filter(Account_name='Labour Charge').exists():
             Purchase(Account_type='EXPENCES',Account_name='Labour Charge',Account_desc='Labour Exp').save()
     if not Purchase.objects.filter(Account_name='Raw Meterials').exists():
             Purchase(Account_type='EXPENCES',Account_name='Raw Meterials',Account_desc='Raw Meterials Exp').save()
-
+    if not Purchase.objects.filter(Account_name='Automobile Expense').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Automobile Expense',Account_desc='Automobile Expense').save()
+    if not Purchase.objects.filter(Account_name='Bad Debt').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Bad Debt',Account_desc='Bad Debt').save()
+    if not Purchase.objects.filter(Account_name='Bank Fees and Charges').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Bank Fees and Charges',Account_desc='Bank Fees and Charges').save()
+    if not Purchase.objects.filter(Account_name='Consultant Expense').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Consultant Expense',Account_desc='Consultant Expense').save()
+    if not Purchase.objects.filter(Account_name='Credit card Charges').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Credit card Charges',Account_desc='Credit card Charges').save()
+    if not Purchase.objects.filter(Account_name='Depreciation Charges').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Depreciation Charges',Account_desc='Depreciation Charges').save()
+    if not Purchase.objects.filter(Account_name='IT and Internet Expense').exists():
+            Purchase(Account_type='EXPENCES',Account_name='IT and Internet Expense',Account_desc='IT and Internet Expense').save()
+    if not Purchase.objects.filter(Account_name='Janitorial Expense').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Janitorial Expense',Account_desc='Janitorial Expense').save()
+    if not Purchase.objects.filter(Account_name='Lodging').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Lodging',Account_desc='Lodging').save()
+    if not Purchase.objects.filter(Account_name='Meals and Entertinment').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Meals and Entertinment',Account_desc='Meals and Entertinment').save()
+    if not Purchase.objects.filter(Account_name='Office Supplies').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Office Supplies',Account_desc='Office Supplies').save()
+    if not Purchase.objects.filter(Account_name='Other Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Other Expenses',Account_desc='Other Expenses').save()
+            
+    if not Purchase.objects.filter(Account_name='Postage').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Postage',Account_desc='Postage').save()
+    if not Purchase.objects.filter(Account_name='Printing and sationary').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Printing and sationary',Account_desc='Printing and sationary').save()
+    if not Purchase.objects.filter(Account_name='Rent Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Rent Expenses',Account_desc='Rent Expenses').save()
+    if not Purchase.objects.filter(Account_name='Repair and maintenance').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Repair and maintenance',Account_desc='Repair and maintenance').save()
+    if not Purchase.objects.filter(Account_name='Salaries and Employee wages').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Salaries and Employee wages',Account_desc='Salaries and Employee wages').save()
+    if not Purchase.objects.filter(Account_name='Telephonic Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Telephonic Expenses',Account_desc='Telephonic Expenses').save()
+    if not Purchase.objects.filter(Account_name='Travel Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Travel Expenses',Account_desc='Travel Expenses').save()
+    if not Purchase.objects.filter(Account_name='Uncategorized').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Uncategorized',Account_desc='Uncategorized').save()
+    if not Purchase.objects.filter(Account_name='Contract Assets').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Contract Assets',Account_desc='Contract Assets').save()
+    if not Purchase.objects.filter(Account_name='Depreciation and Amoritisation').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Depreciation and Amoritisation',Account_desc='Depreciation and Amoritisation').save()
+    if not Purchase.objects.filter(Account_name='Merchandise').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Merchandise',Account_desc='Merchandise').save()
+    if not Purchase.objects.filter(Account_name='Raw material and Consumables').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Raw material and Consumables',Account_desc='Raw material and Consumables').save()
+    if not Purchase.objects.filter(Account_name='Transportation Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Transportation Expenses',Account_desc='Transportation Expenses').save()
+    if not Purchase.objects.filter(Account_name='Transportation Expenses').exists():
+            Purchase(Account_type='EXPENCES',Account_name='Transportation Expenses',Account_desc='Transportation Expenses').save()
+    if not Purchase.objects.filter(Account_name='Cost Of Goods Sold').exists():
+            Purchase(Account_type='Cost Of Goods Sold',Account_name='Cost Of Goods Sold',Account_desc='Cost Of Goods Sold').save()
+    if not Purchase.objects.filter(Account_name='Job Costing').exists():
+            Purchase(Account_type='Cost Of Goods Sold',Account_name='Job Costing',Account_desc='Job Costing').save()
+    if not Purchase.objects.filter(Account_name='Labour').exists():
+            Purchase(Account_type='Cost Of Goods Sold',Account_name='Labour',Account_desc='Labour').save()
+    if not Purchase.objects.filter(Account_name='Materials').exists():
+            Purchase(Account_type='Cost Of Goods Sold',Account_name='Materials',Account_desc='Materials').save()
+    if not Purchase.objects.filter(Account_name='Subcontractor').exists():
+            Purchase(Account_type='Cost Of Goods Sold',Account_name='Subcontractor',Account_desc='Subcontractor').save()
+    if not Purchase.objects.filter(Account_name='Furniture and Equipment').exists():
+            Purchase(Account_type='Fixed Asset',Account_name='Furniture and Equipment',Account_desc='Furniture and Equipment').save()
     company = company_details.objects.get(user = request.user)
     context = {
                 'company' : company
             }
     return render(request,'loginhome.html',context)
 
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def view_profile(request):
 
     company = company_details.objects.get(user = request.user)
@@ -167,27 +252,17 @@ def edit_profile(request,pk):
             }
     return render(request,'edit_profile.html',context)
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def itemview(request):
     viewitem=AddItem.objects.all()
     return render(request,'item_view.html',{'view':viewitem})
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def additem(request):
     unit=Unit.objects.all()
     sale=Sales.objects.all()
     purchase=Purchase.objects.all()
-    
-    
-
-
-  
-    
-        
-
-
-
     accounts = Purchase.objects.all()
     account_types = set(Purchase.objects.values_list('Account_type', flat=True))
 
@@ -203,30 +278,91 @@ def additem(request):
                             
                             })
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def add_account(request):
     if request.method=='POST':
-        Account_type  =request.POST['acc_type']
-        Account_name =request.POST['acc_name']
-        Account_desc =request.POST['acc_desc']
-       
-        acc=Purchase(Account_type=Account_type,Account_name=Account_name,Account_desc=Account_desc)
-        acc.save()                 
-        return redirect("additem")
+        Account_type  =request.POST.get('acc_type')
+        if Account_type is not None:
+            Account_name =request.POST['acc_name']
+            Account_desc =request.POST['acc_desc']
+        
+            acc=Purchase(Account_type=Account_type,Account_name=Account_name,Account_desc=Account_desc)
+            acc.save() 
+            account_id=acc.id 
+                           
+            return JsonResponse({"Account_type":Account_type,"Account_name":Account_name,"Account_desc":Account_desc,'account_id':account_id})
         
     return render(request,'additem.html')
 
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def add(request):
     if request.user.is_authenticated:
         if request.method=='POST':
             radio=request.POST.get('radio')
-            if radio=='tax':
+           
+            
+            if radio =='taxable':
+                print('tax section')
+                
     
                 
                 inter=request.POST['inter']
+                print(inter)
                 intra=request.POST['intra']
+                type=request.POST.get('type')
+                name=request.POST['name']
+                unit=request.POST['unit']
+                hsn=request.POST['hsn']
+                status=request.POST.get('status')
+                sel_price=request.POST.get('sel_price')
+                sel_acc=request.POST.get('sel_acc')
+                s_desc=request.POST.get('sel_desc')
+                cost_price=request.POST.get('cost_price')
+                cost_acc=request.POST.get('cost_acc')      
+                p_desc=request.POST.get('cost_desc')
+                tax=request.POST.get('radio')
+                u=request.user.id
+                us=request.user
+                history="Created by" + str(us)
+                user=User.objects.get(id=u)
+                unit=Unit.objects.get(id=unit)
+                sel=Sales.objects.get(id=sel_acc)
+                cost=Purchase.objects.get(id=cost_acc)
+                invacc=request.POST.get('invacc')
+                stock=request.POST.get('openstock')
+                rate=request.POST.get('inventoryaccntperunit')
+                status_stock=request.POST.get('satus',0)
+               
+           
+                
+                
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                tax=tax,
+                                hsn=hsn,
+                                unit=unit,
+                                sales=sel,
+                                purchase=cost,
+                                satus=status,
+                                user=user,
+                                creat=history,
+                                interstate=inter,
+                                intrastate=intra,
+                                invacc=invacc,
+                                stock=stock,
+                                rate=rate,
+                                status_stock=status_stock
+                                
+                                )
+                ad_item.save()
+                
+            else:
+                print('nontaxsection')
+                                                  
                 type=request.POST.get('type')
                 name=request.POST['name']
                 unit=request.POST['unit']
@@ -237,6 +373,8 @@ def add(request):
                 cost_price=request.POST.get('cost_price')
                 cost_acc=request.POST.get('cost_acc')      
                 p_desc=request.POST.get('cost_desc')
+                tax=request.POST.get('radio')
+                status=request.POST.get('status')
                 u=request.user.id
                 us=request.user
                 history="Created by" + str(us)
@@ -244,41 +382,46 @@ def add(request):
                 unit=Unit.objects.get(id=unit)
                 sel=Sales.objects.get(id=sel_acc)
                 cost=Purchase.objects.get(id=cost_acc)
-                ad_item=AddItem(type=type,Name=name,p_desc=p_desc,s_desc=s_desc,s_price=sel_price,p_price=cost_price,hsn=hsn,unit=unit,
-                            sales=sel,purchase=cost,user=user,creat=history,interstate=inter,intrastate=intra
+                stock = request.POST['openstock']
+                invacc=request.POST.get('invacc')
+                rate=request.POST.get('inventoryaccntperunit')
+                status_stock=request.POST.get('satus',0)
+               
+               
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                hsn=hsn,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                unit=unit,
+                                sales=sel,
+                                tax=tax,
+                                purchase=cost,
+                                satus = status,
+                                user=user,
+                                creat=history,
+                                interstate='none',
+                                intrastate='none',
+                                invacc=invacc,
+                                stock=stock,
+                                rate=rate,
+                                status_stock=status_stock
+                              
+                            
+                               
                                 )
                 
-            else:
-                                                  
-                type=request.POST.get('type')
-                name=request.POST['name']
-                unit=request.POST['unit']
-                sel_price=request.POST.get('sel_price')
-                sel_acc=request.POST.get('sel_acc')
-                s_desc=request.POST.get('sel_desc')
-                cost_price=request.POST.get('cost_price')
-                cost_acc=request.POST.get('cost_acc')      
-                p_desc=request.POST.get('cost_desc')
-                u=request.user.id
-                us=request.user
-                history="Created by" + str(us)
-                user=User.objects.get(id=u)
-                unit=Unit.objects.get(id=unit)
-                sel=Sales.objects.get(id=sel_acc)
-                cost=Purchase.objects.get(id=cost_acc)
-                ad_item=AddItem(type=type,Name=name,hsn=hsn,p_desc=p_desc,s_desc=s_desc,s_price=sel_price,p_price=cost_price,unit=unit,
-                            sales=sel,purchase=cost,user=user,creat=history,interstate='none',intrastate='none'
-                                )
                 ad_item.save()
-            ad_item.save()
+           
            
             return redirect("itemview")
     return render(request,'additem.html')
 
-
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def edititem(request,id):
+    item=AddItem.objects.all
     pedit=AddItem.objects.get(id=id)
     p=Purchase.objects.all()
     s=Sales.objects.all()
@@ -288,43 +431,51 @@ def edititem(request,id):
     account_types = set(Purchase.objects.values_list('Account_type', flat=True))
     
 
-    
+    company=company_details.objects.get(user=request.user)
     account = Sales.objects.all()
     account_type = set(Sales.objects.values_list('Account_type', flat=True))
     
-    return render(request,'edititem.html',{"account":account,"account_type":account_type,'e':pedit,'p':p,'s':s,'u':u,"accounts":accounts,"account_types":account_types})
+    return render(request,'edititem.html',{"account":account,"account_type":account_type,'e':pedit,'p':p,'s':s,'u':u,"accounts":accounts,"account_types":account_types,'item':item,"company":company})
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def edit_db(request,id):
         if request.method=='POST':
             edit=AddItem.objects.get(id=id)
             edit.type=request.POST.get('type')
             edit.Name=request.POST['name']
-            unit=request.POST['unit']
+            unit=request.POST.get('unit')
             edit.s_price=request.POST['sel_price']
             sel_acc=request.POST['sel_acc']
             edit.s_desc=request.POST['sel_desc']
             edit.p_price=request.POST['cost_price']
             cost_acc=request.POST['cost_acc']        
             edit.p_desc=request.POST['cost_desc']
-            
-            
+            edit.hsn=request.POST['hsn']
+            edit.stock=request.POST['openstock']
+            edit.satus=request.POST.get('status')
+            edit.invacc=request.POST.get('invacc')
+            edit.rate=request.POST['inventoryaccntperunit']
+            edit.status_stock=request.POST.get('satus')
             edit.unit=Unit.objects.get(id=unit)
             edit.sales=Sales.objects.get(id=sel_acc)
             edit.purchase=Purchase.objects.get(id=cost_acc)
+            
+
             edit.save()
-            return redirect('itemview')
+            
+            return redirect('detail', id=edit.id)
+
 
         return render(request,'edititem.html')
 
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def detail(request,id):
     user_id=request.user
     items=AddItem.objects.all()
     product=AddItem.objects.get(id=id)
     history=History.objects.filter(p_id=product.id)
+    comments = Comments_item.objects.filter(item=id).order_by('-id')
     print(product.id)
     
     
@@ -332,13 +483,72 @@ def detail(request,id):
        "allproduct":items,
        "product":product,
        "history":history,
+       "comments":comments,
       
     }
     
     return render(request,'demo.html',context)
 
 
+
+
 # @login_required(login_url='login')
+# def comment(request, product_id):
+#     if request.method == 'POST':
+#         user = request.user
+#         product = AddItem.objects.get(id=product_id)
+#         new_comment = request.POST.get('comment')
+        
+#         # Save the new comment to the database
+#         Comments_item.objects.create(item=product, user=user, content=new_comment)
+
+#     # Retrieve all the comments for the product
+#     comments = Comments_item.objects.filter(item=product_id).values_list('content', flat=True)
+
+#     response_data = {'comments': list(comments)}
+#     return JsonResponse(response_data)
+
+@login_required(login_url='login')
+def commentdb(request, product_id):
+    if request.method == 'POST':
+        user = request.user
+        items=AddItem.objects.all()
+        product = AddItem.objects.get(id=product_id)
+        history=History.objects.filter(p_id=product.id)
+        new_comment = request.POST.get('comment')  # Use 'comment' here
+        
+
+        # Save the new comment to the database
+        Comments_item.objects.create(item=product, user=user, content=new_comment)  # Use 'comment' here
+        company=company_details.objects.get(user=request.user)
+
+    # Retrieve all the comments for the product
+        comments = Comments_item.objects.filter(item=product_id).order_by('id')
+
+        context={
+        "allproduct":items,
+        "product":product,
+        "history":history,
+        "comments":comments,
+        "company":company
+
+        
+        }
+
+    return render(request, 'demo.html', context)
+
+@login_required(login_url='login')
+def delete_comment(request, product_id, comment_id):
+    try:
+        comment = Comments_item.objects.get(id=comment_id, item_id=product_id, user=request.user)
+        comment.delete()
+    except Comments_item.DoesNotExist:
+        pass
+
+    return redirect('detail', product_id)
+
+
+@login_required(login_url='login')
 def Action(request,id):
     user=request.user.id
     user=User.objects.get(id=user)
@@ -357,23 +567,24 @@ def Action(request,id):
             History(user=user,message="Item marked as inActive",p=event).save()
     return render(request,'item_view.html',{'view':viewitem})
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def cleer(request,id):
     dl=AddItem.objects.get(id=id)
     dl.delete()
     return redirect('itemview')
 
-
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def add_unit(request):
-    if request.method=='POST':
-        unit_name=request.POST['unit_name']
-        Unit(unit=unit_name).save()
-        return redirect('additem')
-    return render(request,"additem.html")
+    if request.method == 'POST':
+        unit_name = request.POST['unit_name']
+        unit = Unit(unit=unit_name)  
+        unit.save()  
+        unit_id = unit.id  
+        return JsonResponse({"unit_name": unit_name, "unit_id": unit_id})
+    return render(request, "additem.html")
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def add_sales(request):
     if request.method=='POST':
         Account_type  =request.POST['acc_type']
